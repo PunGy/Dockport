@@ -8,6 +8,7 @@ def prepare_data():
     global args
     global container
     global state
+    global abbreviations
     if argv[0].find("python") == -1:
         args = argv[1:]
     else:
@@ -20,11 +21,16 @@ def prepare_data():
         "delimiter": "-",
         "container": ""
     }
+    abbreviations = {
+        "pma": "phpmyadmin",
+        "serve": "nginx",
+        "bd": "mysql"
+    }
     try:
         if len(args) == 0 or args[0][0] == '-':
             raise Exception("Enter name of container!")
         container = args.pop(0)
-
+        container = container if abbreviations.get(container) is None else abbreviations.get(container)
         if len(args) > 0:
             i = 0
             while i < len(args):
