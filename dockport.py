@@ -16,6 +16,7 @@ def prepare_data():
         "browser": False,
         "prefix": "",
         "buffer": False,
+        "server": "localhost",
         "delimiter": "-",
         "container": ""
     }
@@ -47,6 +48,9 @@ def prepare_data():
         print("out")
 
 
+# START OF PROGRAM
 prepare_data()
-port = subprocess.Popen("docker port " + container, shell=True).stdout.read()
+port = subprocess.Popen("docker port " + container, shell=True, stdout=subprocess.PIPE)\
+    .stdout.read().decode("utf-8").strip()
+
 print(port)
