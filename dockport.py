@@ -2,36 +2,49 @@
 
 from sys import argv
 import subprocess
+import pyperclip
 
 # CONFIG
-state = {
-    "container": "",
-    "prefix": "",
+keys = {
     "browser": False,
-    "buffer": False,
-    "server": "localhost",
-    "delimiter": "-",
-    "envFileName": ".env",
-    "envNameContainer": "PROD",
-    "env": False
+    "buffer": False
 }
 abbreviations = {
     "pma": "phpmyadmin",
     "serve": "nginx"
+}
+config = {
+    "server": "localhost",
+    "delimiter": "-",
+    "envFileName": ".env",
+    "envNameContainer": "COMPOSE_PROJECT_NAME",
+    "env": False,
+
+    # USE BY PROGRAM
+    "container": "",
+    "prefix": ""
 }
 NOT_FOUND = -1
 # CONFIG/
 
 
 # FUNCTIONS
+def exec_keys():
+    global keys
+    if keys["browser"]:
+        subprocess.call("google-chrome http://" + url, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if keys["buffer"]:
+        pyperclip.copy(url)
+
+
 def get_env():
     try:
-        env = open(state["envFileName"])
+        env = open(config["envFileName"])
         prefix = False
     except FileNotFoundError:
         return False
     for line in env:
-        if line.find(state["envNameContainer"]) != NOT_FOUND:
+        if line.find(config["envNameContainer"]) != NOT_FOUND:
             prefix = line.split('=')[1].strip('\n')
     return prefix
 
@@ -39,7 +52,7 @@ def get_env():
 def prepare_data():
     global args
     global container
-    global state
+    global config
     global abbreviations
 
     if argv[0].find("python") == NOT_FOUND:
@@ -59,23 +72,23 @@ def prepare_data():
                 if args[i] == '-p':
                     i += 1
                     if get_env() is not False:
-                        state["prefix"] = prefix
+                        config["prefix"] = prefix
                         continue
 
                     if args[i - 1] == args[len(args) - 1] or args[i][0] == '-':
                         raise Exception("Wrong prefix name!")
-                    state["prefix"] = args[i]
+                    config["prefix"] = args[i]
                     continue
 
                 if args[i] == '-b':
-                    state["buffer"] = True
+                    keys["buffer"] = True
                 if args[i] == '-o':
-                    state["browser"] = True
+                    keys["browser"] = True
                 i += 1
 
-        state["prefix"] = state["prefix"] = state["prefix"] + state["delimiter"] if len(state["prefix"]) != 0 else ""
-        state["container"] = container
-        container = state["prefix"] + container
+        config["prefix"] = config["prefix"] + config["delimiter"] if len(config["prefix"]) != 0 else ""
+        config["container"] = container
+        container = config["prefix"] + container
     except Exception as e:
         print(e)
         exit()
@@ -90,7 +103,8 @@ try:
         .stdout.read().decode("utf-8").strip()
 
     port = port[port.find(':') + 1:]
-    url = state["server"] + ":" + port
+    url = config["server"] + ":" + port
+    exec_keys()
     print(url)
 except Exception as msg:
     print(msg)
