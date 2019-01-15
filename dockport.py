@@ -5,27 +5,25 @@ import subprocess
 import pyperclip
 
 # CONFIG
-keys = {
-    "browser": False,
-    "buffer": False
-}
-abbreviations = {
+abbreviations = {  # abbreviations to shortening long words, you can add your own ("short":"long")
     "pma": "phpmyadmin",
     "serve": "nginx"
 }
-config = {
-    "server": "localhost",
-    "delimiter": "-",
-    "envFileName": ".env",
-    "envNameContainer": "COMPOSE_PROJECT_NAME",
-    "env": False,
-
-    # USE BY PROGRAM
-    "container": "",
-    "prefix": ""
+config = {  # Config of file
+    "server": "localhost",  # Server name which will be autocomplete before port: localhost:8080
+    "delimiter": "-",  # Delimiter between project name and image name
+    "envFileName": ".env",  # Name of env file
+    "envNameContainer": "COMPOSE_PROJECT_NAME",  # Name of designation of project name
 }
+
+config.update({"container": "", "prefix": ""})
 NOT_FOUND = -1
 # CONFIG/
+
+keys = {  # keys of launch
+    "browser": False,
+    "buffer": False
+}
 
 
 # FUNCTIONS
