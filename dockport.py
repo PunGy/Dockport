@@ -11,6 +11,7 @@ abbreviations = {  # abbreviations to shortening long words, you can add your ow
 }
 config = {  # Config of file
     "server": "localhost",  # Server name which will be autocomplete before port: localhost:8080
+    "protocol": "http",  # Protocol of server
     "delimiter": "-",  # Delimiter between project name and image name
     "envFileName": ".env",  # Name of env file
     "envNameContainer": "COMPOSE_PROJECT_NAME",  # Name of designation of project name
@@ -101,7 +102,7 @@ try:
         .stdout.read().decode("utf-8").strip()
 
     port = port[port.find(':') + 1:]
-    url = config["server"] + ":" + port
+    url = config["protocol"] + "://" + config["server"] + ":" + port
     exec_keys()
     print(url)
 except Exception as msg:
