@@ -5,14 +5,14 @@ import subprocess
 
 # CONFIG
 state = {
-    "browser": False,
+    "container": "",
     "prefix": "",
+    "browser": False,
     "buffer": False,
     "server": "localhost",
     "delimiter": "-",
-    "container": "",
     "envFileName": ".env",
-    "envNameContainer": "PROJECT_NAME",
+    "envNameContainer": "PROD",
     "env": False
 }
 abbreviations = {
@@ -57,15 +57,15 @@ def prepare_data():
             i = 0
             while i < len(args):
                 if args[i] == '-p':
+                    i += 1
                     if get_env() is not False:
-                        i += 1
                         state["prefix"] = prefix
                         continue
 
                     if args[i - 1] == args[len(args) - 1] or args[i][0] == '-':
-                        i += 1
                         raise Exception("Wrong prefix name!")
                     state["prefix"] = args[i]
+                    continue
 
                 if args[i] == '-b':
                     state["buffer"] = True
