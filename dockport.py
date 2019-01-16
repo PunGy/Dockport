@@ -102,6 +102,9 @@ try:
         .stdout.read().decode("utf-8").strip()
 
     port = port[port.find(':') + 1:]
+    if port.find("No such container") != NOT_FOUND:
+        raise Exception(port)
+
     url = config["protocol"] + "://" + config["server"] + ":" + port
     exec_keys()
     print(url)
