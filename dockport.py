@@ -31,7 +31,7 @@ keys = {  # keys of launch
 def exec_keys():
     global keys
     if keys["browser"]:
-        subprocess.call("google-chrome http://" + url, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        subprocess.call("google-chrome " + url, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     if keys["buffer"]:
         pyperclip.copy(url)
 
