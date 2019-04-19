@@ -7,7 +7,7 @@ Script to view which url used image of docker
 * `sudo ./init.sh` - put dockport file in /usr/local/bin/
 
 ## Requirements
-Script using package manager <b>`pip3`</b> and interpreter <b>`python3`</b>, for clipboard using <b>`pyperclip`</b> 
+Script using package manager <b>`pip3`</b> and interpreter <b>`python3`</b>. For clipboard using <b>`pyperclip`</b> 
 
 ## Usage
 in call of scripts must be specified name of image `dockport image [options]`<br/>
