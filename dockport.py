@@ -63,6 +63,7 @@ def prepare_data():
         if len(args) == 0 or args[0][0] == '-':
             raise Exception("Enter name of container!")
         container = args.pop(0)
+        # if recieved abbreviation - replace it with decryption
         container = container if abbreviations.get(container) is None else abbreviations.get(container)
         prefix = get_env()
         if len(args) > 0:
