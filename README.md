@@ -2,7 +2,7 @@
 Script to view which url used image of docker
 
 ## Installation
-* <b>`git clone git@gitlab.com:PunGy/dockport.git`</b> or <b>`git clone https://gitlab.com/PunGy/dockport.git`</b>
+* clone repository 
 * `pip3 install -r requirements.txt` - installing requirements of project
 * `sudo ./init.sh` - put dockport file in /usr/local/bin/
 
